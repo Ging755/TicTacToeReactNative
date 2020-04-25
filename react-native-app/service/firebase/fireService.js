@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-class Fire {
+class FireService {
   constructor() {
     this.init();
   }
@@ -27,5 +27,5 @@ class Fire {
   }
 }
 
-Fire = new Fire();
-export default Fire;
+FireService = new FireService();
+export default FireService;
