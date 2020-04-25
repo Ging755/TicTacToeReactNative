@@ -19,17 +19,17 @@ class GameStore {
 
     @action.bound
     async upDateGrid(girdNumber) {
-        if (this.turn % 2 === 1 && this.player === "X") {
+        if (this.turn % 2 === 1 && this.player === "X" && this.grid[girdNumber] === "") {
             this.grid.splice(girdNumber, 1, this.player);
-
+            this.turn++;
             FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
                 grid: this.grid,
                 timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
             })
         }
-        if (this.turn % 2 === 0 && this.player === "O") {
+        if (this.turn % 2 === 0 && this.player === "O" && this.grid[girdNumber] === "") {
             this.grid.splice(girdNumber, 1, this.player);
-
+            this.turn++;
             FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
                 grid: this.grid,
                 timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
@@ -60,6 +60,8 @@ class GameStore {
                 this.grid = snapshot.val().grid;
             })
 
+            this.turn=1;
+
             this.grid.map((el) => {
                 if (el !== "") {
                     this.turn++;
@@ -73,16 +75,18 @@ class GameStore {
     async getAndTrackGame(gameKey) {
         FireService.firebase.database().ref('games/' + gameKey + '/').on('child_changed', snapshot => {
             if (Array.isArray(snapshot.val())) {
-                console.log("Track", snapshot.val())
                 runInAction(() => {
                     this.grid = snapshot.val();
                 })
+
+                this.turn = 1;
 
                 this.grid.map((el) => {
                     if (el !== "") {
                         this.turn++;
                     }
                 })
+
                 this.checkStatus();
             }
         });
