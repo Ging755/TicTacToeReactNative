@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Clipboard, TouchableOpacity } from 'react-native';
+import { View, Text, Clipboard, TouchableOpacity, Button } from 'react-native';
 import { observer } from 'mobx-react'
 import GameStore from '../../service/application/gameStore'
 import Cell from '../../components/cell'
@@ -12,14 +12,17 @@ class Game extends Component {
         <View style={{ flex: 0.5, flexDirection: 'column' }}>
           <View style={{ flex: 0.5 }}>
             <TouchableOpacity onPress={() => Clipboard.setString(GameStore.gameCode)}>
-              <Text>Game Code:{GameStore.gameCode}-TAP TO COPY</Text>
+              <Text>Game Code:</Text>
+              <Text>{GameStore.gameCode}</Text>
+              <Text>TAP TO COPY</Text>
             </TouchableOpacity>
           </View>
           <View style={{ flex: 0.5 }}>
             <Text>Game Status: {GameStore.status}</Text>
+            <Text>You're: {GameStore.player}</Text>
           </View>
         </View>
-        <View style={{ flex: 0.95, flexDirection: 'column' }}>
+        <View style={{ flex: 0.85, flexDirection: 'column' }}>
           <View style={{ flex: 0.25, flexDirection: 'row' }}>
             <Cell cellValue={GameStore.grid[0]} gridNumber={0}></Cell>
             <Cell cellValue={GameStore.grid[1]} gridNumber={1}></Cell>
@@ -35,6 +38,13 @@ class Game extends Component {
             <Cell cellValue={GameStore.grid[7]} gridNumber={7}></Cell>
             <Cell cellValue={GameStore.grid[8]} gridNumber={8}></Cell>
           </View>
+        </View>
+        <View style={{ flex: 0.1 }}>
+          <Button
+            onPress={GameStore.clearBoard}
+            title="Clear"
+            color="#841584"
+          />
         </View>
       </View>
     );

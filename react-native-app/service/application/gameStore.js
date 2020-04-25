@@ -11,6 +11,23 @@ class GameStore {
     turn = 1;
 
     @action.bound
+    async clearBoard() {
+        runInAction(() => {
+            this.grid = ["", "", "", "", "", "", "", "", "",];
+        })
+
+        runInAction(() => {
+            this.status = "PLAYING";
+        })
+        this.turn = 1;
+
+        FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
+            grid: this.grid,
+            timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
+        });
+    }
+
+    @action.bound
     async setGameCode(value) {
         runInAction(() => {
             this.gameCode = value;
@@ -41,6 +58,10 @@ class GameStore {
     async createGame() {
         this.player = "X";
         this.oponent = "O";
+        runInAction(() => {
+            this.status = "PLAYING";
+        })
+
         let gameKey = FireService.firebase.database().ref('games').push({
             grid: this.grid,
             timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
@@ -54,6 +75,9 @@ class GameStore {
     async joinGame() {
         this.player = "O";
         this.oponent = "X";
+        runInAction(() => {
+            this.status = "PLAYING";
+        })
 
         FireService.firebase.database().ref('games/' + this.gameCode + '/').once('value').then(snapshot => {
             runInAction(() => {
@@ -93,7 +117,7 @@ class GameStore {
     }
 
     async checkStatus() {
-        let status = "";
+        let status = "PLAYING";
         if ([this.grid[0], this.grid[1], this.grid[2]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[0] === this.player) {
                 status = "YOU WIN";
@@ -145,7 +169,6 @@ class GameStore {
         } else if (this.grid.every(el => el !== "")) {
             status = "DRAW";
         }
-
 
         runInAction(() => {
             this.status = status;
