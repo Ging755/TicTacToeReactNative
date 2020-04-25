@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { View, Button, StyleSheet, TextInput } from 'react-native';
-import { observe } from 'mobx'
+import { observer } from 'mobx-react'
+import GameStore from '../../service/application/gameStore'
 
-@observe
+@observer
 class Main extends Component {
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View>
                     <TextInput
+                        style={styles.inputContainer}
+                        value={GameStore.gameCode}
+                        onChangeText={(value) => GameStore.setGameCode(value)}
                         placeholder="Enter game code..."
                     />
                 </View>
