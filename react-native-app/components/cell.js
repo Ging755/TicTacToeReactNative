@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import GameStore from '../service/application/gameStore'
+import { observer } from 'mobx-react'
 
+@observer
 export default class Cell extends React.Component {
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={(value) => {GameStore.upDateGrid(this.props.gridNumber)}}>
         <View style={styles.container}>
-          <Text style={styles.content}>X</Text>
+          <Text style={styles.content}>{this.props.cellValue}</Text>
         </View>
       </TouchableOpacity>
     );

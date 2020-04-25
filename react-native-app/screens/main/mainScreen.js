@@ -20,13 +20,19 @@ class Main extends Component {
                     <View>
                         <Button
                             title="Create Game"
-                            onPress={() => this.props.navigation.navigate('Game')}
+                            onPress={async () => {
+                                await GameStore.createGame();
+                                this.props.navigation.navigate('Game');
+                            }}
                         />
                     </View>
                     <View>
                         <Button
                             title="Join Game"
-                            onPress={() => this.props.navigation.navigate('Game', { id: 'Test123' })}
+                            onPress={async () => {
+                                await GameStore.joinGame();
+                                this.props.navigation.navigate('Game', { id: 'Test123' })
+                            }}
                         />
                     </View>
                 </View>

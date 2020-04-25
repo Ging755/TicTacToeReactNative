@@ -3,6 +3,8 @@ import firebase from 'firebase';
 class FireService {
   constructor() {
     this.init();
+
+    this.firebase = firebase;
   }
 
   init = () => {
