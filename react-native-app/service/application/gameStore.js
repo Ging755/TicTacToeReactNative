@@ -36,21 +36,23 @@ class GameStore {
 
     @action.bound
     async upDateGrid(girdNumber) {
-        if (this.turn % 2 === 1 && this.player === "X" && this.grid[girdNumber] === "") {
-            this.grid.splice(girdNumber, 1, this.player);
-            this.turn++;
-            FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
-                grid: this.grid,
-                timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
-            })
-        }
-        if (this.turn % 2 === 0 && this.player === "O" && this.grid[girdNumber] === "") {
-            this.grid.splice(girdNumber, 1, this.player);
-            this.turn++;
-            FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
-                grid: this.grid,
-                timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
-            })
+        if(this.status === "PLAYING"){
+            if (this.turn % 2 === 1 && this.player === "X" && this.grid[girdNumber] === "") {
+                this.grid.splice(girdNumber, 1, this.player);
+                this.turn++;
+                FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
+                    grid: this.grid,
+                    timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
+                })
+            }
+            if (this.turn % 2 === 0 && this.player === "O" && this.grid[girdNumber] === "") {
+                this.grid.splice(girdNumber, 1, this.player);
+                this.turn++;
+                FireService.firebase.database().ref('games/' + this.gameCode + '/').set({
+                    grid: this.grid,
+                    timeStamp: FireService.firebase.database.ServerValue.TIMESTAMP
+                })
+            }
         }
     }
 
@@ -149,6 +151,7 @@ class GameStore {
                 status = "YOU LOSE";
             }
         } else if ([this.grid[0], this.grid[3], this.grid[6]].every((val, i, arr) => val === arr[0])) {
+            console.log("Here");
             if (this.grid[0] === this.player) {
                 status = "YOU WIN";
             } else if (this.grid[0] === this.oponent) {
@@ -157,13 +160,13 @@ class GameStore {
         } else if ([this.grid[1], this.grid[4], this.grid[7]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[1] === this.player) {
                 status = "YOU WIN";
-            } else if (this.grid[0] === this.oponent) {
+            } else if (this.grid[1] === this.oponent) {
                 status = "YOU LOSE";
             }
         } else if ([this.grid[2], this.grid[5], this.grid[8]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[2] === this.player) {
                 status = "YOU WIN";
-            } else if (this.grid[0] === this.oponent) {
+            } else if (this.grid[2] === this.oponent) {
                 status = "YOU LOSE";
             }
         } else if (this.grid.every(el => el !== "")) {
