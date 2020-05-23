@@ -10,7 +10,7 @@ class Main extends Component {
     render() {
         return (
             <View style={{ ...StyleStore.styles.primary, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={{ backgroundColor: '#121212' }}>
+                <View style={{ ...StyleStore.styles.primary }}>
                     <TextInput
                         style={{ ...StyleStore.styles.primary }}
                         value={GameStore.gameCode}
