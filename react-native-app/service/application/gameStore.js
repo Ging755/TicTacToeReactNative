@@ -1,4 +1,4 @@
-
+import { Alert } from "react-native";
 import { observable, runInAction, action } from 'mobx'
 import FireService from '../firebase/fireService'
 
@@ -118,59 +118,109 @@ class GameStore {
         });
     }
 
+    victoryAlert() {
+        Alert.alert(
+            "Victory",
+            "You Win!!",
+            [
+              { text: "OK" }
+            ],
+            { cancelable: true }
+          );
+    }
+
+    loseAlert() {
+        Alert.alert(
+            "Lost",
+            "You Lose... Better Like Next time",
+            [
+              { text: "OK" }
+            ],
+            { cancelable: true }
+          );
+    }
+
+    drawAlert() {
+        Alert.alert(
+            "Draw",
+            "It's a draw, try to win next time!",
+            [
+              { text: "OK" }
+            ],
+            { cancelable: true }
+          );
+    }
+
     async checkStatus() {
         let status = "PLAYING";
         if ([this.grid[0], this.grid[1], this.grid[2]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[0] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[0] === this.oponent) {
-                status = "YOU LOSE"
+                status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[3], this.grid[4], this.grid[5]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[3] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[3] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[6], this.grid[7], this.grid[8]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[6] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[6] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[0], this.grid[4], this.grid[8]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[0] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[0] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[2], this.grid[4], this.grid[6]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[2] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[2] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[0], this.grid[3], this.grid[6]].every((val, i, arr) => val === arr[0])) {
             console.log("Here");
             if (this.grid[0] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[0] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[1], this.grid[4], this.grid[7]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[1] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[1] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if ([this.grid[2], this.grid[5], this.grid[8]].every((val, i, arr) => val === arr[0])) {
             if (this.grid[2] === this.player) {
                 status = "YOU WIN";
+                this.victoryAlert();
             } else if (this.grid[2] === this.oponent) {
                 status = "YOU LOSE";
+                this.loseAlert();
             }
         } else if (this.grid.every(el => el !== "")) {
             status = "DRAW";
+            this.drawAlert();
         }
 
         runInAction(() => {

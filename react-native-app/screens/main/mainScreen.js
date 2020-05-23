@@ -7,10 +7,10 @@ import GameStore from '../../service/application/gameStore'
 class Main extends Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 1)' }}>
+                <View style={{ backgroundColor: '#121212' }}>
                     <TextInput
-                        style={styles.inputContainer}
+                        style={{ color: 'rgba(255, 255, 255, 0.95)' }}
                         value={GameStore.gameCode}
                         onChangeText={(value) => GameStore.setGameCode(value)}
                         placeholder="Enter game code..."
@@ -19,6 +19,7 @@ class Main extends Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View>
                         <Button
+                            color='#621FF7'
                             title="Create Game"
                             onPress={async () => {
                                 await GameStore.createGame();
@@ -28,6 +29,7 @@ class Main extends Component {
                     </View>
                     <View>
                         <Button
+                            color='#621FF7'
                             title="Join Game"
                             onPress={async () => {
                                 await GameStore.joinGame();
@@ -40,8 +42,5 @@ class Main extends Component {
         );
     }
 }
-
-let styles = StyleSheet.create({
-})
 
 export default Main;
