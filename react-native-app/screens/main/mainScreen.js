@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { View, Button, StyleSheet, TextInput } from 'react-native';
+import { View, Button, TextInput } from 'react-native';
 import { observer } from 'mobx-react'
-import GameStore from '../../service/application/gameStore'
+
+import GameStore from '../../service/application/gameStore';
+import StyleStore from '../../service/application/styleStore';
 
 @observer
 class Main extends Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0, 0, 0, 1)' }}>
+            <View style={{ ...StyleStore.styles.primary, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ backgroundColor: '#121212' }}>
                     <TextInput
-                        style={{ color: 'rgba(255, 255, 255, 0.95)' }}
+                        style={{ ...StyleStore.styles.primary }}
                         value={GameStore.gameCode}
                         onChangeText={(value) => GameStore.setGameCode(value)}
                         placeholder="Enter game code..."
@@ -19,7 +21,7 @@ class Main extends Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View>
                         <Button
-                            color='#621FF7'
+                            color={StyleStore.secondary}
                             title="Create Game"
                             onPress={async () => {
                                 await GameStore.createGame();
@@ -29,11 +31,11 @@ class Main extends Component {
                     </View>
                     <View>
                         <Button
-                            color='#621FF7'
+                            color={StyleStore.secondary}
                             title="Join Game"
                             onPress={async () => {
                                 await GameStore.joinGame();
-                                this.props.navigation.navigate('Game', { id: 'Test123' })
+                                this.props.navigation.navigate('Game')
                             }}
                         />
                     </View>

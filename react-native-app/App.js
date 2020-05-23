@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Game from './screens/game/gameScreen'
 import Main from './screens/main/mainScreen'
 
+import StyleStore from './service/application/styleStore';
+
 const Stack = createStackNavigator();
 
 function NavStack() {
@@ -12,9 +14,9 @@ function NavStack() {
         screenOptions={{
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: '#121212',
+            backgroundColor: StyleStore.primary,
           },
-          headerTintColor: '#fff',
+          headerTintColor: StyleStore.primaryText,
           headerTitleStyle :{
             fontWeight: 'bold',
           },
