@@ -16,6 +16,7 @@ class Main extends Component {
                         value={GameStore.gameCode}
                         onChangeText={(value) => GameStore.setGameCode(value)}
                         placeholder="Enter game code..."
+                        placeholderTextColor={StyleStore.primaryText}
                     />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
@@ -33,6 +34,7 @@ class Main extends Component {
                         <Button
                             color={StyleStore.secondary}
                             title="Join Game"
+                            disabled={GameStore.gameCode == ''}
                             onPress={async () => {
                                 await GameStore.joinGame();
                                 this.props.navigation.navigate('Game')

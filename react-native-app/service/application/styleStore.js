@@ -27,7 +27,7 @@ class StyleStore {
             this.primaryText = this.theme == 'Dark' ? '#ffffff' : '#000000'
             this.secondary =  this.theme == 'Dark' ? '#f06292' : '#4dd0e1'
             this.secondaryLight = this.theme == 'Dark' ? '#ff94c2' : '#88ffff'
-            this.secondaryDark = this.theme == 'Dark' ?'#ba2d65' : '#009faf'
+            this.secondaryDark = this.theme == 'Dark' ? '#ba2d65' : '#009faf'
             this.secondaryText = this.theme == 'Dark' ? '#000000' : '#000000'
 
             this.styles = StyleSheet.create({
